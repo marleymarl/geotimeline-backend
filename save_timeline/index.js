@@ -12,11 +12,12 @@ var connection =  mysql.createConnection({
 
     console.log(JSON.stringify(event))
     
-    const timeline = event.timeline
+    const timeline = event
+    let timelineDataArray = timeline.map(Object.values)
 
     
 
-    let footprintSQL = `INSERT INTO footprints (case_id, date, time, latitude, longitude) VALUES (?, ?, ?, ?, ?)`
+    let footprintSQL = `INSERT INTO footprints (case_id, date, time, latitude, longitude) VALUES ?`
 
     connection.connect((connErr) => {
           if (connErr) {
@@ -26,10 +27,11 @@ var connection =  mysql.createConnection({
     
     console.log(connection)
     
-    connection.query(footprintSQL, [timeline.map(item => [item.case_id, item.date, item.time, item.latitude, item.longitude])] , function(err, res) {
+    connection.query(footprintSQL, [timelineDataArray] , function(err, res) {
           if (err) { callback(err); return}
           else { 
             callback(null, JSON.stringify(res))
+            console.log(JSON.stringify(res))
         
           }
     })
