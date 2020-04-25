@@ -8,7 +8,7 @@ resource "aws_s3_bucket" "main" {
   }
 
   versioning {
-    enabled = false
+    enabled = true
   }
 
   lifecycle_rule {
@@ -34,7 +34,7 @@ resource "aws_s3_bucket" "app" {
   }
 
   versioning {
-    enabled = false
+    enabled = true
   }
 
   lifecycle_rule {
