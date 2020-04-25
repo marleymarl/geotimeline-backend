@@ -2,6 +2,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+.terraform/
 lock.json
 
 # Crash log files
