@@ -1,7 +1,7 @@
 locals {
+  # https://aws.amazon.com/marketplace/pp/Neo4j-Neo4j-Graph-Database-Community-Edition/B071P26C9D
   ami           = "ami-064b5023b1b903df2"
   instance_type = "m4.large"
-
 }
 
 resource "aws_instance" "instance" {

@@ -1,11 +1,11 @@
 data "aws_iam_policy_document" "instances" {
   statement {
-    effect    = "Allow",
-    resources = ["*"],
-    actions   = [
+    effect    = "Allow"
+    resources = ["*"]
+    actions = [
       "ec2:DescribeInstances",
       "ec2:DescribeVolume*",
-    ],
+    ]
   }
 }
 
@@ -15,22 +15,22 @@ resource "aws_iam_policy" "instances" {
 }
 
 resource "aws_iam_role_policy_attachment" "instances_core" {
-  role       = module.core.role_id
+  role       = aws_iam_role.role.id
   policy_arn = aws_iam_policy.instances.arn
 }
 
 
 data "aws_iam_policy_document" "cwlogs" {
   statement {
-    effect    = "Allow",
-    resources = ["*"],
-    actions   = [
+    effect    = "Allow"
+    resources = ["*"]
+    actions = [
       "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents",
       "logs:DescribeLogGroups",
       "logs:DescribeLogStreams",
-    ],
+    ]
   }
 }
 
@@ -40,18 +40,18 @@ resource "aws_iam_policy" "cwlogs" {
 }
 
 resource "aws_iam_role_policy_attachment" "cwlogs_core" {
-  role       = module.core.role_id
+  role       = aws_iam_role.role.id
   policy_arn = aws_iam_policy.cwlogs.arn
 }
 
 
 resource "aws_iam_instance_profile" "profile" {
-  name  = "profile_${var.project_name}_neo4j"
-  role  = aws_iam_role.role.name
+  name = "profile_${var.project_name}_neo4j"
+  role = aws_iam_role.role.name
 }
 
 resource "aws_iam_role" "role" {
-  name  = "role_${var.project_name}_neo4j"
+  name = "role_${var.project_name}_neo4j"
 
   assume_role_policy = <<EOF
 {
