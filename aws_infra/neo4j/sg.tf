@@ -1,3 +1,27 @@
+resource "aws_security_group" "allow_all" {
+  name        = "allow_all"
+  description = "Allow all inbound traffic"
+
+  ingress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "allow_all"
+    Terraformed = "true"
+  }
+}
+
 resource "aws_security_group" "sg" {
   name_prefix = "${var.project_name}-neo4j"
   description = "Security group for the ${var.project_name} Neo4j cluster"
@@ -7,8 +31,6 @@ resource "aws_security_group" "sg" {
     terraformed = "true"
   }
 }
-
-# Causal clustering SG rules
 
 locals {
   discovery_port   = 5000
