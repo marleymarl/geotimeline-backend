@@ -4,7 +4,7 @@ module "neo4j" {
   project_name = var.project_name
 
   vpc_id    = data.aws_vpc.default.id
-  subnet_id = element(data.aws_subnet_ids.default.ids, 0)
+  subnet_id = tolist(data.aws_subnet_ids.default.ids)[0]
   key_name  = aws_key_pair.neo4j.key_name
 }
 
@@ -18,5 +18,5 @@ data "aws_subnet_ids" "default" {
 
 resource "aws_key_pair" "neo4j" {
   key_name   = "neo4j"
-  public_key = file("~/Downloads/AWS_keys/test.pem.pub")
+  public_key = file("${path.module}/neo4j.pem.pub")
 }

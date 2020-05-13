@@ -12,7 +12,7 @@ resource "aws_instance" "instance" {
   user_data                   = var.user_data
   ebs_optimized               = true
   associate_public_ip_address = true
-  vpc_security_group_ids      = aws_security_group.sg.id
+  vpc_security_group_ids      = [aws_security_group.sg.id]
   iam_instance_profile        = aws_iam_instance_profile.profile.id
 
   root_block_device {
